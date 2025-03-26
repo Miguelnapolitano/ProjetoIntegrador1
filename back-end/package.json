@@ -1,0 +1,21 @@
+{
+  "name": "projeto_1",
+  "version": "1.0.0",
+  "description": "Um backend Express com MySQL",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "prisma migrate deploy && node src/app.js",
+    "dev": "prisma generate && prisma migrate dev && nodemon src/app.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prisma": "^6.5.0"
+  }
+}

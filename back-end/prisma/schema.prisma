@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Profissional {
+  id          Int           @id @default(autoincrement())
+  nome        String        @db.VarChar(50)
+  email       String        @unique @db.VarChar(75)
+  username    String        @unique @db.VarChar(50)
+  senha       String        @db.VarChar(100)
+  Atendimento Atendimento[]
+}
+
+model Cliente {
+  id          Int           @id @default(autoincrement())
+  nome        String        @db.VarChar(50)
+  email       String        @unique @db.VarChar(75)
+  telefone    String        @db.VarChar(11)
+  ativo       Boolean       @default(true)
+  Atendimento Atendimento[]
+}
+
+model Atendimento {
+  id             Int          @id @default(autoincrement())
+  profissional   Profissional @relation(fields: [profissionalId], references: [id])
+  profissionalId Int
+  cliente        Cliente      @relation(fields: [clienteId], references: [id])
+  clienteId      Int
+}
