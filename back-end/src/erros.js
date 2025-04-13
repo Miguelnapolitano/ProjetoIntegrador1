@@ -1,4 +1,4 @@
-// import { ZodError } from 'zod'
+import { ZodError } from 'zod'
 
 class AppErro extends Error {
   statusCode;
@@ -9,23 +9,22 @@ class AppErro extends Error {
   }
 }
 
-const organizadorErros = (error, req, res, _) => {
+const organizadorDeErros = (error, req, res, _) => {
   if (error instanceof AppErro) {
     return res.status(error.statusCode).json({
       message: error.message,
     });
   }
 
-//   if (error instanceof ZodError) {
-//     return res.status(400).json({
-//       message: error.flatten().fieldErrors,
-//     });
-//   }
+  if (error instanceof ZodError) {
+    return res.status(400).json({
+      message: error.flatten().fieldErrors,
+    });
+  }
 
-  console.log(error);
   return res.status(500).json({
     message: "Internal server error.",
   });
 };
 
-export { AppErro , organizadorErros };
+export { AppErro , organizadorDeErros };

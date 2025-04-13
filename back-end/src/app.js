@@ -1,18 +1,22 @@
 import express from 'express'
-import clientesRouter from './rotas/clientes.js'
-import { organizadorErros } from './erros.js'
+import RotasClientes from './rotas/cliente.rotas.js'
+import RotasProfissionais from './rotas/profissional.rotas.js'
+import RotaLogin from './rotas/login.rotas.js'
+import 'express-async-errors'
+import { organizadorDeErros } from './erros.js'
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 
-app.use('/clientes', clientesRouter)
+app.use('/profissionais', RotasProfissionais)
+app.use('/login', RotaLogin)
+app.use('/clientes', RotasClientes)
 
-
-app.use(organizadorErros)
+app.use(organizadorDeErros)
 
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
+  console.log(`Servidor está rodando em http://localhost:${PORT}`)
 })
