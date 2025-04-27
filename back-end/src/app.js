@@ -2,6 +2,7 @@ import express from 'express'
 import RotasClientes from './rotas/cliente.rotas.js'
 import RotasProfissionais from './rotas/profissional.rotas.js'
 import RotaLogin from './rotas/login.rotas.js'
+import RotasAuth from './rotas/auth.rotas.js'
 import 'express-async-errors'
 import { organizadorDeErros } from './erros.js'
 
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3000
 app.use(express.json())
 
 app.use('/profissionais', RotasProfissionais)
+app.use('/auth', RotasAuth)
 app.use('/login', RotaLogin)
 app.use('/clientes', RotasClientes)
 
