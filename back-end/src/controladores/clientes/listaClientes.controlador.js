@@ -1,6 +1,4 @@
-import { servicoListaClientes } from "../../servicos/clientes.servicos/listarTodos.servicos.js"
-
-
+import { servicoListaClientes } from "../../servicos/clientes/listarTodos.servicos.js"
 
 export const controladorListaClientes = async (req, res) => {
     const clientes = await servicoListaClientes();
