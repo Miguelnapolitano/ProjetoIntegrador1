@@ -20,7 +20,7 @@ model Profissional {
 model Cliente {
   id          Int           @id @default(autoincrement())
   nome        String        @db.VarChar(50)
-  email       String        @unique @db.VarChar(75)
+  email       String        @db.VarChar(75)
   telefone    String        @db.VarChar(11)
   ativo       Boolean       @default(true)
   Atendimento Atendimento[]
@@ -32,4 +32,6 @@ model Atendimento {
   profissionalId Int
   cliente        Cliente      @relation(fields: [clienteId], references: [id])
   clienteId      Int
+  data           String
+  hora           String
 }

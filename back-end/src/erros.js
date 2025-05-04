@@ -9,7 +9,7 @@ class AppErro extends Error {
   }
 }
 
-const organizadorDeErros = (error, req, res, _) => {
+const organizadorDeErros = (error, req, res, next) => {
   if (error instanceof AppErro) {
     return res.status(error.statusCode).json({
       message: error.message,
