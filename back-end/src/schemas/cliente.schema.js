@@ -10,3 +10,5 @@ export const retornaVariosClientesSchema = clienteSchema.extend({
     id: z.number(),
     ativo: z.boolean()
 }).array()
+
+export const partialClienteSchema = clienteSchema.partial()

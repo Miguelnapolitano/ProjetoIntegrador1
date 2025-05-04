@@ -1,8 +1,8 @@
-import prisma from '../server.js';
-import { AppErro } from '../erros.js';
+import prisma from "../server.js";
+import { AppErro } from "../erros.js";
 
-export const verificaIDProfissional = async (req, res, next) => {
-  const idCliente = req.query.cliente;
+export const verificaIDCliente = async (req, res, next) => {
+  const idCliente = parseInt(req.params.id) || parseInt(req.query.cliente);
 
   try {
     const cliente = await prisma.cliente.findFirst({
@@ -11,12 +11,15 @@ export const verificaIDProfissional = async (req, res, next) => {
       },
     });
     if (cliente) {
-        return next()
-    };
-
+      return next();
+    }
     throw new AppErro("id do cliente não econtrado no banco de dados", 404);
   } catch (erro) {
     console.log(erro);
+
+    if (erro instanceof AppErro) {
+      return next(erro);
+    }
 
     throw new AppErro("erro interno do servidor", 500);
   }
