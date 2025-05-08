@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+    <!--  Declaração do tipo de documento que está usando, uma instrução para o navegador 
+    saber interpretar o código. Nesse caso, define que estamos usando o HTML5.  -->
+
+<html lang="pt-BR">
+    <!-- Abre o HTML e diz que o idioma é português do Brasil. -->
+    
+    <head>
+        <!-- Abre o cabeçalho do HTML, onde ficam as informações sobre o documento. -->
+        <meta charset="UTF-8" />
+        <!-- Define o conjunto de caracteres como UTF-8. Isso permite usar acentos, emojis, etc. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Faz a página ficar responsiva, se adaptando a celular, tablet, TV, o que for. -->
+        <title>Área do cliente</title>
+        <!-- Título que aparece no Url-->
+        <link rel="stylesheet" href="css/Interface_do_cliente.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    </head>    
+
+    <body>
+        <!-- O corpo da página começa aqui. -->
+        <header class="cabecalho">
+            <!-- Cabeçalho da página, com o título e o menu de navegação. -->
+            <h2 class="logo">💅 Área do profissional</h2>
+            <!-- Título dentro do cabeçalho. -->
+            <nav class="menu">
+                <!-- Menu de navegação. -->
+                <div class="menu-box"><a href="#formCadastro">Sair</a></div>
+                <!-- Link para sair da conta. -->
+            </nav>
+            <!-- Fecha o menu de navegação. -->
+        </header>
+        <!-- O cabeçalho termina aqui. -->     
+    <main>
+        <!-- Conteúdo principal da página. -->
+        <div class="box-titulo">
+            <!-- Caixa de título. -->
+            <h1>Olá, [Nome do Cliente]. Você tem [número de agendamentos] serviços agendados.</h1>
+            <!-- Título dentro da caixa. -->             
+        </div>
+        <!-- A caixa de título termina aqui. -->
+        <nav class="menu botoes-centro">
+            <div class="menu-box"><a href="#formCadastro">Agendar horário</a></div>
+            <div class="menu-box"><a href="#formCadastro">Atualizar informações do cliente</a></div>
+            <div class="menu-box"><a href="#formCadastro">Cadastrar cliente</a></div>
+        </nav>
+    </main>   
+    <script>
+            const cliente = 
+            {nome: "Juliana",
+            agendamentos: 3};
+            // Objeto cliente com nome e número de agendamentos.
+            // Esse objeto poderia vir de um banco de dados ou API, mas aqui está hardcoded para simplificar.
+    
+            const titulo = document.getElementById("boasVindas");
+            titulo.textContent = `Olá, ${cliente.nome}. Você tem ${cliente.agendamentos} serviços agendados.`;
+            // Seleciona o elemento com o id "boasVindas" e altera seu texto para incluir o nome e número de agendamentos do cliente.
+            // Isso é feito usando template literals, que permitem incluir variáveis dentro de strings.
+      </script>
+</body>
+</html>
+        
+
+
+

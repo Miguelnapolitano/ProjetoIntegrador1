@@ -1,0 +1,131 @@
+            body 
+            {font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            padding: 30px;
+            margin: 0;}
+            /* O body é o corpo da página, onde fica todo o conteúdo.*/
+
+            .cabecalho 
+            {background-color: #dda7d3;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);}
+            /* Aqui é a estrutura rosa do cabeçalho com fundo branco*/
+
+            .logo 
+            {margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;}
+            /* A logo é o título do cabeçalho.*/
+
+            .menu 
+            {display: flex;
+            gap: 15px;}
+            /* O menu é uma lista de links. Tem flexbox para alinhar os itens e espaço entre eles. */
+
+            .menu-box 
+            {background-color: #61585f;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;}
+            /* Cada item do menu tem fundo cinza, padding, borda arredondada, sombra e uma transição suave para a cor de fundo. */
+
+            .menu-box:hover
+            {background: linear-gradient(135deg, #7a6b74, #dda7d3);
+            transform: scale(1.05);
+            cursor: pointer;}
+            /* Quando passa o mouse em cima do item do menu, ele muda para um cinza mais claro. */
+
+            .menu-box:focus-within 
+            {outline: 2px solid #dda7d3;}
+            /* Quando o item do menu tem foco, ele ganha uma borda rosa. */
+
+            .menu-box a 
+            {color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;}
+            /* Os links do menu têm texto branco, sem sublinhado, negrito e ocupam todo o espaço do item. */
+            
+            main 
+            {padding: 20px;}
+            /* O main é a área principal da página, onde fica o conteúdo. Tem padding para espaçamento. */
+              
+            .box-titulo 
+            {margin-bottom: 20px;
+            text-align: center;}
+            /* A box-titulo é uma caixa que contém o título. Tem margem embaixo para espaçamento. */
+            .box-titulo h1 
+            {color: #000000;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;}
+            
+            .menu.botoes-centro 
+            {display: flex;
+            justify-content: center; /* Centraliza os botões */
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px}
+
+            h1 
+            {color: #000000;
+            margin: 0;}
+            /* O h1 é o título principal da página. Aqui, ele tem a cor branca e não tem margem. */
+
+            @media (max-width: 768px) 
+            /* A partir de 768px, o layout muda para ser mais responsivo. */
+            /* Responsividade para tablets e telas menores */
+            {.cabecalho 
+            {flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 15px;}
+            /* O cabeçalho muda para coluna em telas menores, alinhando os itens à esquerda. */
+              
+            .menu 
+            {flex-direction: column;
+            width: 100%;}
+            /* O menu muda para coluna em telas menores, ocupando toda a largura. */
+              
+            .menu-box 
+            {width: 100%;
+            text-align: center;}
+            /* Os itens do menu ocupam toda a largura e ficam centralizados. */
+              
+            .box-titulo h1 
+            {font-size: 1.2rem;}
+            /* O título dentro da box-titulo tem tamanho de fonte menor. */
+              
+            main 
+            {padding: 10px;}
+            /* O main tem padding menor em telas menores. */
+              
+            .menu.botoes-centro 
+            {flex-direction: column;
+            align-items: center;}}
+
+            @media (max-width: 480px) 
+            {.logo {font-size: 20px;}
+            /* A logo tem tamanho de fonte menor em telas menores. */
+                
+            .menu-box 
+            {padding: 8px 16px;}
+            /* Os itens do menu têm padding menor em telas menores. */
+                
+            .box-titulo h1 
+            {font-size: 1rem;}}
+            /* O título dentro da box-titulo tem tamanho de fonte ainda menor. */
+
+            
+
+            
