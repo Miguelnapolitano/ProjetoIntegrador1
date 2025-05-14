@@ -1,0 +1,39 @@
+body {    
+    font-family: "Gloria Hallelujah", cursive;
+  }
+  
+#main-dash {
+    margin: 0 auto;
+    background-image: url("../../assets/bg_login.png");
+    height: 100%;
+    justify-items: center;    
+    align-content: center;
+    
+}
+
+#div-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#schedule-div {
+    min-width: 900px;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    background-color: #a2e4f2;
+}
+
+h1 {
+    color: #4ea654
+}
