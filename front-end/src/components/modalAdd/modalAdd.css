@@ -1,0 +1,12 @@
+.div-inputs{
+    display: flex;
+    justify-content: space-between;
+}
+
+.w-60{
+    width: 60%;
+}
+
+.w-40{
+    width: 40%;
+}
