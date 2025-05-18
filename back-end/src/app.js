@@ -12,13 +12,18 @@ import { organizadorDeErros } from "./erros.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
 app.use(cors({
-  origin: 'https://projeto-integrador1-pi.vercel.app',
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: [
+    'https://projeto-integrador1-pi.vercel.app',
+    'https://projeto-integrador1-7fyx782a8-miguelnapolitanos-projects.vercel.app'
+  ],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: true,
+  exposedHeaders: ['Authorization']
 }));
-
+app.options('*', cors());
+app.use(express.json());
 app.use("/profissionais", RotasProfissionais);
 app.use("/auth", RotasAuth);
 app.use("/login", RotaLogin);
