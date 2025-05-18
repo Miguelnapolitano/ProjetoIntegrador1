@@ -4,12 +4,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; 
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import interactionPlugin from '@fullcalendar/interaction'
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { DashContext } from '../../contexts/dashboardContext';
 
 export default function Schedule() {
 
-  const {handleAddClickOpen, handleEditClickOpen, events} = useContext(DashContext)
+  const {handleModalOpen, scheduleEvents, getClients} = useContext(DashContext)
+
+  useEffect(()=> {
+    getClients()
+  }, [])
 
   return (    
     <FullCalendar
@@ -19,9 +23,11 @@ export default function Schedule() {
       height={500}     
       locale={'pt-br'}
       editable={true}
-      dateClick={handleAddClickOpen}
-      eventClick={handleEditClickOpen}
-      events={events}
+      dateClick={(e) => handleModalOpen(e,'event')}
+      eventClick={(e) => handleModalOpen(e, 'event')}
+      events={scheduleEvents}
+      eventColor='#dc79c5'
+      timeZone='UTC'
     />
   )
 }

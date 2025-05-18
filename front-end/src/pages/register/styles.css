@@ -1,19 +1,18 @@
 body {    
     font-family: "Gloria Hallelujah", cursive;
-  }
+    color: white
+}
   
 #main-register {
     margin: 0 auto;
-    padding: 16px;
     text-align: center;
-    background-image: url("../../assets/bg_login.png");
     height: 100%;
     justify-items: center;    
     align-content: center;
-    
 }
 
 .section-form{
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     min-width: 400px;

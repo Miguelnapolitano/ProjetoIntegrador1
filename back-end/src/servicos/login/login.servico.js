@@ -4,6 +4,7 @@ import { AppErro } from "../../erros.js";
 import jwt from "jsonwebtoken";
 
 export const servicoLogin = async (credenciais) => {
+  
   try {
     const usuario = await prisma.profissional.findFirst({
       where: {

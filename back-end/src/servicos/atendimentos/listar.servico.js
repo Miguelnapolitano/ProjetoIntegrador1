@@ -1,7 +1,7 @@
 import { AppErro } from "../../erros.js";
 import prisma from "../../server.js";
 
-export async function servicoListarAtendimentos() {
+export async function servicoListarAtendimentos(profissional) {
   try {
     const response = await prisma.atendimento.findMany({
       select: {
@@ -11,7 +11,7 @@ export async function servicoListarAtendimentos() {
         cliente: {
           select: {
             nome: true,
-            telefone: true
+            id: true
           }
         },
         profissional: {
@@ -19,6 +19,9 @@ export async function servicoListarAtendimentos() {
             username: true
           }
         }
+      },
+      where: {
+        profissionalId: profissional
       }
     });
     return response;

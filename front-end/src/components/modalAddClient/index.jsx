@@ -10,6 +10,7 @@ import { DashContext } from '../../contexts/dashboardContext';
 import { useContext } from 'react';
 import { FormControl, TextField } from '@mui/material';
 import './modalAdd.css'
+import { useTheme } from '@emotion/react';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -20,33 +21,30 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function ModalAdd() {
+export default function ModalAddClient() {
 
   const { 
-      modalAddOpen, 
+      modalClientOpen, 
       handleModalClose,
-      title,
-      setTitle,
-      date,
-      setDate,
-      setClassCode,
-      content,
-      setContent,
+      setClientName,
+      setClientEmail,
+      setClientPhone,
       errors,
-      saveActivity,
+      saveClient,
       } = useContext(DashContext) 
 
+  useTheme();
 
   return (
     <>
       <BootstrapDialog
         onClose={handleModalClose}
-        open={modalAddOpen}
+        open={modalClientOpen}
         fullWidth={true}
         maxWidth='sm'
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id='customized-dialog-title'>
-          Nova Atividade
+          Novo Cliente
         </DialogTitle>
         <IconButton
           aria-label='close'
@@ -63,69 +61,54 @@ export default function ModalAdd() {
         <DialogContent dividers>
         <FormControl fullWidth={true}>
             <TextField 
-                id='title'
+                id='client-name'
                 autoFocus={true}
                 required={true} 
                 margin='dense'
                 type='text' 
-                label='Título' 
+                label='Nome' 
                 variant='outlined' 
                 color='success'
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                error={Boolean(errors.title)}
-                helperText={errors.title}
+                onChange={(e) => setClientName(e.target.value)}
+                error={Boolean(errors.clientName)}
+                helperText={errors.clientName}
             />
             <div className='div-inputs'>
               <TextField 
-                  id='date' 
+                  id='client-email' 
                   required={true} 
                   margin='dense'
-                  type='date'
+                  type='email'
+                  label='E-mail'
                   variant='outlined' 
                   sx={{width: 0.98/2}}
                   color='success'
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  error={Boolean(errors.date)}
-                  helperText={errors.date}
+                  onChange={(e) => setClientEmail(e.target.value)}
+                  error={Boolean(errors.clientEmail)}
+                  helperText={errors.clientEmail}
               />
               <TextField 
-                  id='class' 
+                  id='client-phone' 
                   required={true} 
                   margin='dense'
                   type='text' 
-                  label='Turma' 
+                  label='Telefone' 
                   variant='outlined'                  
-                  color='success' 
+                  color='success'
+                  placeholder='Formato: 11922223333'
                   sx={{width: 0.98/2}}
-                  onChange={(e) => setClassCode(e.target.value)}
-                  error={Boolean(errors.classCode)}
-                  helperText={errors.classCode}
+                  onChange={(e) => setClientPhone(e.target.value)}
+                  error={Boolean(errors.clientPhone)}
+                  helperText={errors.clientPhone}
               />
             </div>
-            <TextField 
-                  id='content' 
-                  required={true} 
-                  margin='dense'
-                  type='text' 
-                  label='Conteúdo Planejado'
-                  variant='outlined' 
-                  multiline={true}
-                  minRows={5}
-                  color='success'
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  error={Boolean(errors.content)}
-                  helperText={errors.content}
-              />
         </FormControl>
         </DialogContent>
         <DialogActions>
           <Button 
             variant='contained' 
-            color='success'
-            onClick={saveActivity}
+            color='primary'
+            onClick={saveClient}
           >
             Salvar
           </Button>

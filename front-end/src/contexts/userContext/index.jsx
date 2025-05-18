@@ -1,140 +1,182 @@
+import { createContext, useState } from "react";
+import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import { createContext, useState } from 'react';
-import { api } from '../../services/api';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
-export const UserContext = createContext({})
+export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    username: "",
+    password: "",
+    login: "",
+  });
 
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({ name: '', password: '' });
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    const validateForm = () => {
-        let isValid = true;
-        const newErrors = { name: '', password: '' };
-
-        if (!userName){
-            newErrors.name = 'Nome Completo é obrigatório.'
-            isValid = false;
-        }
-
-        if (!password) {
-            newErrors.password = 'Senha é obrigatória.';
-            isValid = false;
-        } else if (password.length < 6) {
-            newErrors.password = 'A senha deve ter pelo menos 6 caracteres.';
-            isValid = false;
-        }
-
-        setErrors(newErrors);
-        return isValid;
+  const validateForm = (isLogin = false) => {
+    let isValid = true;
+    const newErrors = {
+      name: "",
+      email: "",
+      username: "",
+      password: "",
+      login: "",
     };
-  
-    const login = async () => {
-        try{
-            const response = 
-                await api.post('/auth/login', 
-                    {username: userName, password: password});
 
-            if(response.status === 200){
-                localStorage.setItem('@TOKEN__AGENDA__ESCOLAR', await response.data.token)
-                
-                setTimeout(() => {
-                    navigate('/dashboard')
-                }, 500)                                
-            }
+    if (isLogin) {
+      if (!login) {
+        newErrors.login = "Email ou Username obrigatório.";
+        isValid = false;
+      }
+    } else {
+      if (!name) {
+        newErrors.name = "Nome Completo é obrigatório.";
+        isValid = false;
+      }
 
-        }catch(err){
-            if (err.response.data === 'Cannot find user'){
-                toast.warn('Usuário não encontrado', {
-                    position: 'top-center',
-                    autoClose: 20000,
-                  })
-            }else if (err.response.data === 'Incorrect password'){
-                toast.warn('Ops! Senha ou usuário incorreto.', {
-                    position: 'top-center',
-                    autoClose: 20000,
-                  });
-            }else{
-                toast.error('Ops! Algo deu errado!', {
-                    position: 'top-center',
-                    autoClose: 20000,
-                  });
-            }           
-        }
+      if (!email) {
+        newErrors.email = "Email é obrigatório.";
+        isValid = false;
+      } else if (!email.includes("@")) {
+        newErrors.email = "Formato do email incorreto.";
+        isValid = false;
+      }
+
+      if (!username) {
+        newErrors.username = "Username é obrigatório.";
+        isValid = false;
+      }
     }
 
-    const newUser = async () => {
-        try{
-            
-            await api.post('/auth/register', 
-                {username: userName, password: password});            
-
-            toast.success('Usuário cadastrado com sucesso!', {
-                position: 'top-center',
-                autoClose: 2000,
-              });
-
-            setTimeout(() => navigate(''), 2000);
-
-        }catch(err){
-            console.log(err)
-            toast.error('Ops! Algo deu errado!', {
-                position: 'top-center',
-                autoClose: 2000,
-              });
-        }
-
+    if (!password) {
+      newErrors.password = "Senha é obrigatória.";
+      isValid = false;
+    } else if (password.length < 6) {
+      newErrors.password = "A senha deve ter pelo menos 6 caracteres.";
+      isValid = false;
     }
-
-    const autoLogin = async () => {
-        const token = localStorage.getItem('@TOKEN__AGENDA__ESCOLAR')
-        
-        if (token) {
-            try{
-                const response = await api.get('/agenda', {
-                    headers: {
-                        authorization: `Bearer ${token}`,
-                    },
-                });
-
-                if (response.status !== 200){
-                    return navigate('/');
-                }
-
-            }catch(err){
-                console.log(err)                
-            }
-        }else{
-            navigate('/');
-        }
-
-    }
-
-    const logout = () => {
-        navigate('/')
-        window.localStorage.clear()
-    }
-  
-    return (
-      <UserContext.Provider value={{
-            userName,
-            setUserName,
-            password,
-            setPassword,
-            validateForm,
-            errors,
-            login, 
-            newUser, 
-            autoLogin, 
-            logout
-            }}>
-        {children}
-      </UserContext.Provider>
-    );
+    setErrors(newErrors);
+    return isValid;
   };
+
+  const signIn = async () => {
+    try {
+      const response = await api.post("/login", {
+        usuario: login,
+        senha: password,
+      });
+
+      if (response.status === 200) {
+        localStorage.setItem("@TOKEN__AGENDA", await response.data.acesso);
+
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 500);
+      }
+    } catch (err) {
+      if (err.response.data === "Cannot find user") {
+        return toast.warn("Ops! Senha ou usuário incorreto.", {
+          position: "top-center",
+          autoClose: 20000,
+        });
+      }
+
+      return toast.error("Ops! Algo deu errado!", {
+        position: "top-center",
+        autoClose: 20000,
+      });
+    }
+  };
+
+  const newUser = async () => {
+    try {
+      const data = {
+        nome: name,
+        senha: password,
+        email,
+        username,
+      };
+
+      await api.post("/profissionais", data);
+
+      toast.success("Usuário cadastrado com sucesso!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+
+      setName("");
+      setEmail("");
+      setUsername("");
+      setPassword("");
+
+      setTimeout(() => navigate(""), 2000);
+    } catch (err) {
+      console.log(err);
+      toast.error("Ops! Algo deu errado!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+    }
+  };
+
+  const autoLogin = async () => {
+    const token = localStorage.getItem("@TOKEN__AGENDA");
+    if (token) {
+      try {
+        const response = await api.post(
+          "/auth",
+          {},
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          return navigate("/dashboard");
+        }
+        return navigate("/");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      navigate("/");
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("@TOKEN__AGENDA");
+    setLogin("");
+    setPassword("");
+    navigate("/");
+  };
+
+  return (
+    <UserContext.Provider
+      value={{
+        setName,
+        setEmail,
+        setUsername,
+        setPassword,
+        setLogin,
+        validateForm,
+        errors,
+        signIn,
+        newUser,
+        autoLogin,
+        logout,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
+};
