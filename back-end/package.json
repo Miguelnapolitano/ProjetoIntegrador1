@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "prisma migrate deploy && node src/app.js",
+    "start": "prisma generate && prisma migrate deploy && node src/app.js",
     "dev": "prisma generate && prisma migrate dev && nodemon src/app.js"
   },
   "dependencies": {
