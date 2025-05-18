@@ -4,13 +4,13 @@ import "./styles.css"
 import { Button } from '@mui/material';
 import { DashContext } from "../../contexts/dashboardContext";
 import { UserContext } from "../../contexts/userContext";
-import ModalAdd from "../../components/modalAdd";
-import ModalEdit from "../../components/modalEdit";
+import ModalAddClient from "../../components/modalAddClient";
+import ModalEvent from "../../components/modalEvent";
 
 
 export const Dashboard = () => {
     
-    const {handleAddClickOpen, getEvents} = useContext(DashContext)
+    const {getEvents, handleModalOpen} = useContext(DashContext)
     const {logout} = useContext(UserContext)
 
     useEffect(() => {
@@ -20,17 +20,18 @@ export const Dashboard = () => {
     return (
         <main id="main-dash">
             <nav>
-                <h1>AGENDA ESCOLAR</h1>
+                <h1>AGENDAMENTOS</h1>
                 <div id="div-buttons">
                     <Button 
                         variant="contained" 
-                        color="success" 
-                        onClick={handleAddClickOpen}>
-                            Nova Atividade
+                        color="secondary" 
+                        onClick={(e) => handleModalOpen(e, 'client')}
+                        >
+                            Adicionar Cliente
                         </Button>
                     <Button 
                         variant="outlined" 
-                        color="error"
+                        color="secondary"
                         onClick={logout}>
                             Sair
                     </Button>
@@ -39,8 +40,8 @@ export const Dashboard = () => {
             <div id="schedule-div">
                 <Schedule></Schedule>
             </div>
-            <ModalAdd props={open}></ModalAdd>
-            <ModalEdit props={open}></ModalEdit>
+            <ModalAddClient props={open}></ModalAddClient>
+            <ModalEvent props={open}></ModalEvent>
         </main>
     )
 }
