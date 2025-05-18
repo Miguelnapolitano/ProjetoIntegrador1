@@ -2,7 +2,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     user: node
     container_name: projeto1_api
     command: sh -c "npm install && npm run dev"

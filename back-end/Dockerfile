@@ -1,20 +1,28 @@
-# Usa a imagem oficial do Node.js como base
 FROM node:22-alpine
 
-# Define o diretório de trabalho dentro do container
-WORKDIR /app
+RUN apk add --no-cache libc6-compat openssl openssl-dev
 
-# Copia os arquivos do projeto para o container
-COPY package* ./
+# Set the working directory (home directory of the user)
+WORKDIR /home/node/app
 
-# Instala as dependências do Node.js
+RUN chown -R node:node /home/node/app;
+
+# Set the user to the non-root user created
+USER node
+
+# Copy package.json and package-lock.json (if available) to the container
+COPY --chown=node:node package*.json .
+
 RUN npm install
 
-# Copia o restante do código do projeto
-COPY . .
+# Copy the rest of the application files to the container
+COPY --chown=node:node . .
 
-# Expõe a porta da API
+# Rebuild Prisma client after schema changes
+RUN npx prisma generate
+
+# Expose the port the app runs on (you can modify if needed)
 EXPOSE 3000
 
-# Comando para iniciar o servidor
+# Command to run the Node.js application
 CMD ["node", "src/app.js"]
